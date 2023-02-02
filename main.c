@@ -6,7 +6,7 @@
 /*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:04:48 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2023/02/01 14:26:47 by gaizkaferna      ###   ########.fr       */
+/*   Updated: 2023/02/01 18:40:10 by gaizkaferna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void ft_printlist(t_list *list);
+int     ft_listsize(t_list *list);
+void    ft_rotatedown(t_list **list);
+void    ft_swap(t_list **list);
+void    ft_rotateup(t_list **list);
+void    ft_printlist(t_list *list);
+t_list  *ft_getlist(char **argv);
 
-t_list *ft_lstlast(t_list *list)
+t_list  *ft_lstlast(t_list *list)
 {
     while(list)
     {
@@ -40,7 +45,16 @@ void    ft_addlistb(t_list **list, t_list *nodo)
     }
 }
 
-t_list *ft_lstnew(int content)
+void    ft_addlistf(t_list **list, t_list *nodo)
+{
+    if(list && new)
+    {
+        new->next = *list;
+        list = new;
+    }
+}
+
+t_list  *ft_lstnew(int content)
 {
     t_list  *list;
     
@@ -51,7 +65,7 @@ t_list *ft_lstnew(int content)
     return(list);
 }
 
-int	ft_atoi(const char *str)
+int     ft_atoi(const char *str)
 {
 	int	sign;
 	int	i;
@@ -81,22 +95,12 @@ int	ft_atoi(const char *str)
 int main(int argc, char** argv)
 {
     t_list      *list;
-    int         n;
-    int         num;
-    t_list      *aux;
 
+    list = NULL;
     (void)argc;
-    n = 1;
-    while(argv[n])
-    {
-        num = ft_atoi(argv[n]);
-        printf("%d \n", num);
-        printf("here");
-        aux = ft_lstnew(num);
-        ft_addlistb(&list, aux);
-        n++;
-        printf("%d \n", n);
-    }
+    list = ft_getlist(&argv[1]);
+    ft_printlist(list);
+    ft_rotatedown(&list);
     ft_printlist(list);
 }
 
@@ -104,8 +108,71 @@ void ft_printlist(t_list *list)
 {
     while(list)
     {
-        printf("HERE\n");
         printf("%d, \n", list->contenido);
         list = list->next; 
     }
+}
+
+t_list *ft_getlist(char **argv)
+{
+    int n;
+    int num;
+    t_list *list;
+    
+    n = 0;
+    num = 0;
+    while(argv[n])
+    {
+        num = ft_atoi(argv[n]);
+        ft_addlistb(&list, ft_lstnew(num));
+        n++;
+    }
+    return(list);
+}
+
+/* void    ft_rotateup(t_list **list)
+{
+    t_list      *last;
+    t_list      *aux;
+
+    aux = *list;
+    last = ft_lstlast(*list);
+    *list = (*list)->next;
+    last->next = aux;
+    aux->next = NULL;
+} */
+
+/* void    ft_swap(t_list **list)
+{
+    t_list      *aux;
+
+    aux = *list;
+    *list = aux->next;
+    aux->next = (*list)->next;
+    (*list)->next = aux;
+} */
+
+void    ft_rotatedown(t_list **list)
+{
+    t_list      *aux;
+
+    aux = *list;
+    while(aux->next->next != NULL)
+            aux = aux->next;
+    aux->next->next = *list;
+    *list = aux->next;
+    aux->next = *list;
+}
+
+int ft_listsize(t_list *list)
+{
+    int i;
+
+    i = 0;
+    while(list)
+    {
+        list = list->next;
+        i++;
+    }
+    return(i);
 }
