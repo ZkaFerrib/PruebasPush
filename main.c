@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
+/*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:04:48 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2023/02/01 18:40:10 by gaizkaferna      ###   ########.fr       */
+/*   Updated: 2023/02/09 15:07:36 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int     ft_listsize(t_list *list);
-void    ft_rotatedown(t_list **list);
-void    ft_swap(t_list **list);
-void    ft_rotateup(t_list **list);
 void    ft_printlist(t_list *list);
 t_list  *ft_getlist(char **argv);
 
@@ -47,10 +45,10 @@ void    ft_addlistb(t_list **list, t_list *nodo)
 
 void    ft_addlistf(t_list **list, t_list *nodo)
 {
-    if(list && new)
+    if(list && nodo)
     {
-        new->next = *list;
-        list = new;
+        nodo->next = *list;
+        list = &nodo;
     }
 }
 
@@ -63,33 +61,6 @@ t_list  *ft_lstnew(int content)
         return (NULL);
     list->contenido = content;
     return(list);
-}
-
-int     ft_atoi(const char *str)
-{
-	int	sign;
-	int	i;
-	int	num;
-
-	sign = 1;
-	i = 0;
-	num = 0;
-	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -sign;
-		i++;
-	}	
-	while (str[i])
-	{
-		if (str[i] < 48 || str[i] > 57)
-			break ;
-		num = num * 10 + (str[i] - 48);
-		i++;
-	}
-	return (num * sign);
 }
 
 int main(int argc, char** argv)
@@ -130,40 +101,6 @@ t_list *ft_getlist(char **argv)
     return(list);
 }
 
-/* void    ft_rotateup(t_list **list)
-{
-    t_list      *last;
-    t_list      *aux;
-
-    aux = *list;
-    last = ft_lstlast(*list);
-    *list = (*list)->next;
-    last->next = aux;
-    aux->next = NULL;
-} */
-
-/* void    ft_swap(t_list **list)
-{
-    t_list      *aux;
-
-    aux = *list;
-    *list = aux->next;
-    aux->next = (*list)->next;
-    (*list)->next = aux;
-} */
-
-void    ft_rotatedown(t_list **list)
-{
-    t_list      *aux;
-
-    aux = *list;
-    while(aux->next->next != NULL)
-            aux = aux->next;
-    aux->next->next = *list;
-    *list = aux->next;
-    aux->next = *list;
-}
-
 int ft_listsize(t_list *list)
 {
     int i;
@@ -176,3 +113,29 @@ int ft_listsize(t_list *list)
     }
     return(i);
 }
+
+/* void ft_pushstack(t_control  *control, char c)
+{
+    t_list     *aux;
+
+    if (c == 'b')
+    {
+        write(1, "pb", 3);
+        aux = control->stack_a;
+        control->stack_a = control->stack_a->next;
+        ft_addlistf(&control->stack_b, aux);
+        control->a_size--;
+        control->b_size++;
+    }
+    else if (c == 'a')
+    {
+        write(1, "pa", 3);
+        aux = control->stack_b;
+        control->stack_b = control->stack_b->next;
+        ft_addlistf(&control->stack_b->next, aux);
+        control->b_size--;
+        control->a_size++;
+    }
+    control->total_moves++;
+    printf("%d \n", control->b_size);
+} */

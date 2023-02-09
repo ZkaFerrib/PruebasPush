@@ -1,0 +1,38 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    MAKEFILE                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/09 13:20:31 by gafernan          #+#    #+#              #
+#    Updated: 2023/02/09 14:19:38 by gafernan         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = push_swap
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra -g3
+OBJ = $(SRC:.c=.o)
+
+SRC = 		list_movements.c	/
+			ft_atoi.c			/
+			main.c				/
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+
+
+clean:
+@rm -f $(OBJ)
+@echo Object files removed
+
+fclean: clean
+	@rm -f $(NAME)
+	@echo Executable file removed
+
+re: fclean all
+
+.PHONY: all clean fclean re bonus
