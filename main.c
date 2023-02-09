@@ -6,7 +6,7 @@
 /*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:04:48 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2023/02/09 15:07:36 by gafernan         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:12:15 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-
-int     ft_listsize(t_list *list);
-void    ft_printlist(t_list *list);
-t_list  *ft_getlist(char **argv);
 
 t_list  *ft_lstlast(t_list *list)
 {
@@ -43,12 +39,12 @@ void    ft_addlistb(t_list **list, t_list *nodo)
     }
 }
 
-void    ft_addlistf(t_list **list, t_list *nodo)
+void    ft_addlistf(t_list **list, t_list **nodo)
 {
-    if(list && nodo)
+    if(*nodo)
     {
-        nodo->next = *list;
-        list = &nodo;
+        *list = *nodo;
+        (*nodo)->next = NULL;
     }
 }
 
@@ -63,17 +59,6 @@ t_list  *ft_lstnew(int content)
     return(list);
 }
 
-int main(int argc, char** argv)
-{
-    t_list      *list;
-
-    list = NULL;
-    (void)argc;
-    list = ft_getlist(&argv[1]);
-    ft_printlist(list);
-    ft_rotatedown(&list);
-    ft_printlist(list);
-}
 
 void ft_printlist(t_list *list)
 {
@@ -90,6 +75,7 @@ t_list *ft_getlist(char **argv)
     int num;
     t_list *list;
     
+    list = NULL;
     n = 0;
     num = 0;
     while(argv[n])
@@ -114,7 +100,7 @@ int ft_listsize(t_list *list)
     return(i);
 }
 
-/* void ft_pushstack(t_control  *control, char c)
+void ft_pushstack(t_control  *control, char c)
 {
     t_list     *aux;
 
@@ -123,7 +109,10 @@ int ft_listsize(t_list *list)
         write(1, "pb", 3);
         aux = control->stack_a;
         control->stack_a = control->stack_a->next;
-        ft_addlistf(&control->stack_b, aux);
+        /* control->stack_b = aux;
+        aux->next = NULL; */
+        //printf("llego\n");
+        ft_addlistf(&(control->stack_b), &aux);
         control->a_size--;
         control->b_size++;
     }
@@ -132,10 +121,31 @@ int ft_listsize(t_list *list)
         write(1, "pa", 3);
         aux = control->stack_b;
         control->stack_b = control->stack_b->next;
-        ft_addlistf(&control->stack_b->next, aux);
+        ft_addlistf(&control->stack_b->next, &aux);
         control->b_size--;
         control->a_size++;
     }
     control->total_moves++;
     printf("%d \n", control->b_size);
-} */
+}
+
+int main(int argc, char** argv)
+{
+    t_list      *list;
+
+    list = NULL;
+    (void)argc;
+    list = ft_getlist(&argv[1]);
+    // ft_printlist(list);
+    // ft_rotatedown(&list);
+    // ft_printlist(list);
+    t_control control;
+    control.stack_a = list;
+    control.stack_b = NULL;
+    ft_pushstack(&control, 'b');
+    printf("stack_a\n");
+    ft_printlist(control.stack_a);
+    printf("stack_b\n");
+    ft_printlist(control.stack_b);
+    // ft_printlist(list);
+}

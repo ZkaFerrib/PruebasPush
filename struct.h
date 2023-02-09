@@ -6,7 +6,7 @@
 /*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:06:04 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2023/02/09 14:32:51 by gafernan         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:57:06 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_control
 /* Utils */
 
 int		ft_atoi(const char *str);
-void    ft_addlistf(t_list **list, t_list *nodo);
+void    ft_addlistf(t_list **list, t_list **nodo);
 void    ft_addlistb(t_list **list, t_list *nodo);
 t_list  *ft_lstnew(int content);
 t_list  *ft_lstlast(t_list *list);

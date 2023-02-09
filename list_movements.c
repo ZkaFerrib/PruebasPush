@@ -6,7 +6,7 @@
 /*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 13:11:03 by gafernan          #+#    #+#             */
-/*   Updated: 2023/02/09 14:28:59 by gafernan         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:46:23 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void    ft_rotatedown(t_list **list)
             aux = aux->next;
     aux->next->next = *list;
     *list = aux->next;
-    aux->next = *list;
+    aux->next = NULL;
 }
