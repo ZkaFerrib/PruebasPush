@@ -6,7 +6,7 @@
 /*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:06:04 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2023/02/09 15:57:06 by gafernan         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:45:31 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_control
 
 /* Utils */
 
+void	ft_simplify_moveset(t_list *stack);
 int		ft_atoi(const char *str);
 void    ft_addlistf(t_list **list, t_list **nodo);
 void    ft_addlistb(t_list **list, t_list *nodo);
@@ -62,5 +63,9 @@ int 	main(int argc, char** argv);
 void    ft_rotateup(t_list **list);
 void    ft_swap(t_list **list);
 void    ft_rotatedown(t_list **list);
+void    ft_pushstack(t_control  *control, char c);
+void    ft_swapcontrol(t_control *control, char c);
+void    ft_rotatedcontrol(t_control *control, char c);
+void    ft_rotatecontrol(t_control *control, char c);
 
 #endif
