@@ -6,7 +6,7 @@
 /*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:06:04 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2023/02/22 14:53:07 by gafernan         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:16:08 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ void    ft_addlistf(t_list **list, t_list **nodo);
 void    ft_addlistb(t_list **list, t_list *nodo);
 t_list  *ft_lstnew(int content);
 t_list  *ft_lstlast(t_list *list);
-t_list *ft_getlist(char **argv, t_control *control);
+t_list  *ft_getlist(char **argv, t_control *control);
 void 	ft_printlist(t_list *list);
 int 	ft_listsize(t_list *list);
 int 	main(int argc, char** argv);
 void    ft_algorithm_three(t_control *control);
+void    ft_algorithm_five(t_control *control);
+void    ft_minvalue(t_control *control);
+void    ft_pushmin(t_control *control);
 
 
 /* movimientos */

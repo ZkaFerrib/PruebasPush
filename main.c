@@ -6,7 +6,7 @@
 /*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:04:48 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2023/02/22 14:53:50 by gafernan         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:17:18 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,25 @@
 #include <stdio.h>
 #include <unistd.h>
 
+
+void    ft_pushmin(t_control *control)
+{
+        if (control->a_moves < 3)
+            while(control->a_moves--)
+                ft_rotatecontrol(control, 'a');
+        else
+        {
+            if(control->a_moves == control->a_size -2)
+            {
+                ft_rotatedcontrol(control, 'a');
+                ft_rotatedcontrol(control, 'a');
+            }
+            if(control->a_moves == control->a_size -1)
+                ft_rotatedcontrol(control, 'a');
+        }
+        control->a_moves  = 0;
+        ft_pushstack(control, 'b');
+}
 
 void    ft_minvalue(t_control *control)
 {
@@ -47,6 +66,7 @@ void    ft_minvalue(t_control *control)
 
     
 }
+
 void	ft_simplify_moveset(t_list *stack)
 {
 	t_list	*aux;
@@ -111,8 +131,8 @@ int main(int argc, char** argv)
     control.stack_b = NULL;
     if (control.a_size == 3)
         ft_algorithm_three(&control);
-    //else if (control.a_size == 5)
-    //    ft_algorithm_five();
+    else if (control.a_size == 5)
+        ft_algorithm_five(&control);
     //else
     //    ft_algorithm_final();
     /* ft_rotatedown(&control.stack_a);
