@@ -6,7 +6,7 @@
 /*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 13:11:03 by gafernan          #+#    #+#             */
-/*   Updated: 2023/02/13 14:44:52 by gafernan         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:42:24 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void ft_pushstack(t_control  *control, char c)
         write(1, "pa", 3);
         aux = control->stack_b;
         control->stack_b = control->stack_b->next;
-        ft_addlistf(&control->stack_b->next, &aux);
+        ft_addlistf(&control->stack_a, &aux);
         control->b_size--;
         control->a_size++;
     }

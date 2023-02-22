@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
+/*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:04:48 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2023/02/16 14:45:25 by gaizkaferna      ###   ########.fr       */
+/*   Updated: 2023/02/22 14:53:50 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,38 @@
 #include <stdio.h>
 #include <unistd.h>
 
+
+void    ft_minvalue(t_control *control)
+{
+    t_list *aux;
+    t_list *stack;
+
+    int moves;
+    int check;
+
+    stack = control->stack_a;
+    moves = 0;
+    while(stack)
+    {
+        check = 0;
+        aux = control->stack_a;
+        while (aux)
+        {
+            if(stack->contenido > aux->contenido)
+                check = 1;
+                aux = aux->next;
+        }
+        if (check == 0)
+        {
+            control->a_moves = moves;
+            break;
+        }
+        stack = stack->next;
+        moves++;
+    }
+
+    
+}
 void	ft_simplify_moveset(t_list *stack)
 {
 	t_list	*aux;
@@ -38,31 +70,6 @@ void	ft_simplify_moveset(t_list *stack)
 	}
 }
 
-int main(int argc, char** argv)
-{
-    t_list      *list;
-
-    list = NULL;
-    (void)argc;
-    list = ft_getlist(&argv[1]);
-    // ft_printlist(list);
-    // ft_rotatedown(&list);
-    // ft_printlist(list);
-    t_control control;
-    control.stack_a = list;
-    control.stack_b = NULL;
-    ft_pushstack(&control, 'b');
-    ft_rotatedown(&control.stack_a);
-    ft_pushstack(&control, 'b');
-    ft_rotateup(&control.stack_b);
-    printf("stack_a\n");
-    ft_printlist(control.stack_a);
-    printf("stack_b\n");
-    ft_printlist(control.stack_b);
-    printf("%d \n", ft_listsize);
-    ft_printlist(list);
-}
-
 void    ft_movestack(t_control *control)
 {
     while(control->ra--)
@@ -73,19 +80,54 @@ void    ft_movestack(t_control *control)
         ft_rotatedcontrol(control, 'a');
     while(control->rrb--)
         ft_rotatedcontrol(control, 'b');
-    while(control->rr--)
+    /* while(control->rr--)
         ft_simplify_moveset(control, 'a' && 'b');
     while(control->rrr--)
-        ft_simplify_moveset(control, 'a' && 'b');
+        ft_simplify_moveset(control, 'a' && 'b'); */
 }
 
-void    ft_initiatevalues(int   c, t_control *control)
+void    ft_initiatevalues(t_control *control)
 {
-    if (c == 0)
-    {
         control->stack_a = NULL;
         control->stack_b = NULL;
         control->a_size = 0;
         control->b_size = 0;
-    }
+}
+
+int main(int argc, char** argv)
+{
+    t_list      *list;
+    t_control   control;
+
+    list = NULL;
+    (void)argc;
+    ft_initiatevalues(&control);
+    list = ft_getlist(&argv[1], &control);
+    printf("a_size = %d\n", control.a_size);
+    // ft_printlist(list);
+    // ft_rotatedown(&list);
+    // ft_printlist(list);
+    control.stack_a = list;
+    control.stack_b = NULL;
+    if (control.a_size == 3)
+        ft_algorithm_three(&control);
+    //else if (control.a_size == 5)
+    //    ft_algorithm_five();
+    //else
+    //    ft_algorithm_final();
+    /* ft_rotatedown(&control.stack_a);
+    ft_pushstack(&control, 'b');
+    ft_pushstack(&control, 'b');
+    ft_rotateup(&control.stack_b);
+    printf("stack_a\n");
+    ft_printlist(control.stack_a);
+    printf("stack_b\n");
+    ft_printlist(control.stack_b);
+    ft_pushstack(&control, 'a');
+    ft_pushstack(&control, 'a');*/
+    printf("stack_a\n");
+    ft_printlist(control.stack_a);
+    printf("stack_b\n");
+    ft_printlist(control.stack_b);
+    //ft_printlist(list);
 }

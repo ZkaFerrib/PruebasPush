@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   listfunc.c                                         :+:      :+:    :+:   */
+/*   list_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:11:35 by gafernan          #+#    #+#             */
-/*   Updated: 2023/02/13 14:14:51 by gafernan         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:51:48 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,13 @@ void    ft_addlistb(t_list **list, t_list *nodo)
 
 void    ft_addlistf(t_list **list, t_list **nodo)
 {
+    t_list  *aux;
+
     if(*nodo)
     {
+        aux = *list;
         *list = *nodo;
-        (*nodo)->next = NULL;
+        (*nodo)->next = aux;
     }
 }
 
@@ -69,7 +72,7 @@ void ft_printlist(t_list *list)
     }
 }
 
-t_list *ft_getlist(char **argv)
+t_list *ft_getlist(char **argv, t_control *control)
 {
     int n;
     int num;
@@ -82,6 +85,7 @@ t_list *ft_getlist(char **argv)
     {
         num = ft_atoi(argv[n]);
         ft_addlistb(&list, ft_lstnew(num));
+        control->a_size++;
         n++;
     }
     return(list);
